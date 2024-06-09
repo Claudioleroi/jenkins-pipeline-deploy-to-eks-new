@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle
+  labels:
+    app: moodle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle
+  template:
+    metadata:
+      labels:
+        app: moodle
+    spec:
+      containers:
+      - name: moodle
+        image: bitnami/moodle:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: MOODLE_DATABASE_HOST
+          value: mysql
+        - name: MOODLE_DATABASE_PORT_NUMBER
+          value: "3306"
+        - name: MOODLE_DATABASE_USER
+          value: moodleuser
+        - name: MOODLE_DATABASE_PASSWORD
+          value: moodlepassword
+        - name: MOODLE_DATABASE_NAME
+          value: moodledb
